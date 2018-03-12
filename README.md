@@ -3,15 +3,15 @@ In order to keep the browser organised
 I want to see a list of links
 
 +----------------------------+                  +--------------------------------------+
-|                            |      request     |                                      |
+|                            |      .all.       |                                      |
 |                            +----------------->+                                      |
-|    User                    |                  |           list of links              |
+|    controller              |                  |           list of links              |
 |                            |                  |                                      |
 |                            |                  |                                      |
 |                            |                  |                                      |
-|                            <------------------+           BROWSER                    |
+|                            <------------------+                                      |
 |                            |   return         |                                      |
-|                            |   the content    |                                      |
+|                            |   array of links |                                      |
 +----------------------------+                  |                                      |
                                                 |                                      |
                                                 |                                      |
