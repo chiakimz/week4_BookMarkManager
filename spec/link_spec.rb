@@ -1,22 +1,6 @@
 require 'link'
  
 describe Link do
-  describe '.connection' do
-    it 'connects to the test database when testing' do
-      expect(PG).to receive(:connect).with(dbname: 'bookmark_manager_test')
-      Link.connection
-    end
-
-    it 'connects to the development database otherwise' do
-      ENV['ENVIRONMENT'] = 'development'
-
-      expect(PG).to receive(:connect).with(dbname: 'bookmark_manager')
-      Link.connection
-      
-      ENV['ENVIRONMENT'] = 'test'
-    end
-  end
-
   describe '.all' do
     it 'returns all links' do
       links = Link.all
@@ -33,5 +17,10 @@ describe Link do
 
       expect(Link.all).to include 'http://www.testlink.com'
     end
-  end
+    it 'does not create a new link if the URL is not valid' do
+      Link.create(url: 'not a real link')
+
+      expect(Link.all).not_to include 'not a real link'
+    end
+  end      
 end 

@@ -11,3 +11,4 @@ gem "rspec"
 gem "capybara"
 gem "pg"
 gem "rake"
+gem 'sinatra-flash'
