@@ -8,24 +8,6 @@ In order to keep the browser organised
 I want to see a list of links
 
 
-+----------------------------+                  +--------------------------------------+
-|                            |      .all.       |                                      |
-|                            +----------------->+                                      |
-|    controller              |                  |           list of links              |
-|                            |                  |                                      |
-|                            |                  |                                      |
-|                            |                  |                                      |
-|                            <------------------+                                      |
-|                            |   return         |                                      |
-|                            |   array of links |                                      |
-+----------------------------+                  |                                      |
-                                                |                                      |
-                                                |                                      |
-                                                |                                      |
-                                                |                                      |
-                                                +--------------------------------------+
-
-
 As a user
 I want to be able to add new links
 
