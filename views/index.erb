@@ -2,10 +2,6 @@
 
 <ul>
   <% @links.each do |link| %>
-    <li id="link-<%= link.id %>">
-+     <a href="<%= link.url %>" target="_blank">
-+       <%= link.title %>
-+     </a>
-+   </li>
+    <li><%= link %>></li>
   <% end %>
 </ul>

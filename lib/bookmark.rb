@@ -1,5 +1,6 @@
 require 'pg'
 require_relative 'database_connection'
+require 'uri'
 
 class Bookmark
 
@@ -12,23 +13,18 @@ class Bookmark
   end
 
   def self.all
-    if ENV['ENVIRONMENT'] == 'test'
-      connection = PG.connect(dbname: 'bookmark_manager_test')
-    else
-      connection = PG.connect(dbname: 'bookmark_manager')
-    end
-
     result = DatabaseConnection.query("SELECT * FROM links")
     result.map { |link| link['url'] }
   end
 
   def self.create(options)
-    if ENV['ENVIRONMENT'] == 'test'
-      connection = PG.connect(dbname: 'bookmark_manager_test')
-    else
-      connection = PG.connect(dbname: 'bookmark_manager')
-    end
+    return false unless is_url?(options[:url])
+    DatabaseConnection.query("INSERT INTO links (url) VALUES('#{options[:url]}')")
+  end
 
-    connection.exec("INSERT INTO links (url) VALUES('#{options[:url]}')")
+  private
+
+  def self.is_url?(url)
+    url =~ /\A#{URI::regexp(['http', 'https'])}\z/
   end
 end

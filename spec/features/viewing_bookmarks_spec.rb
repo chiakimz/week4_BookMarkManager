@@ -3,13 +3,11 @@ require 'pg'
 
 feature 'Viewing bookmarks' do
   scenario 'A user can see bookmarks' do
-    connection = PG.connect(dbname: 'bookmark_manager_test')
+    Bookmark.create(url: "http://makersacademy.com")
+    Bookmark.create(url: "http://destroyallsoftware.com")
+    Bookmark.create(url: "http://google.com")
 
-    connection.exec("INSERT INTO links VALUES(1, 'http://makersacademy.com');")
-    connection.exec("INSERT INTO links VALUES(2, 'http://destroyallsoftware.com');")
-    connection.exec("INSERT INTO links VALUES(3, 'http://google.com');")
-
-    visit('/bookmarks')
+    visit('/bookmarks/new')
 
     expect(page).to have_content "http://makersacademy.com"
     expect(page).to have_content "http://destroyallsoftware.com"
