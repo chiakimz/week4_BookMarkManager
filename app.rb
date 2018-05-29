@@ -9,7 +9,7 @@ class BookmarkManager < Sinatra::Base
 
   get '/' do
   	p ENV
-  	@links = Link.all
+  	@bookmarks = Bookmark.all
   	erb :index
   end
 
@@ -22,13 +22,35 @@ class BookmarkManager < Sinatra::Base
     redirect '/bookmarks'
   end
 
-  get '/add-a-new-link' do
-    erb :add_a_new_link
+  get '/add-a-new-bookmark' do
+    erb :add_a_new_bookmark
   end
 
-  post '/create-new-link' do
-    flash[:notice] = "You must submit a valid URL." unless link
-    redirect('/')
+  post '/create-new-bookmark' do
+    bookmark = Bookmark.create(url: params['url'], title: params['title'])
+
+    flash[:notice] = "You must submit a valid URL." unless bookmark
+    redirect '/'
+  end
+
+  delete '/bookmarks/:id/delete' do
+    @bookmark = Bookmark.find(params['id'])
+    Bookmark.delete(params['id'])
+    redirect '/'
+  end
+
+  get '/bookmarks/:id/edit' do
+    erb :'bookmarks/edit'
+  end
+
+  get '/bookmarks/:id' do
+    @bookmark_id = params['id']
+    erb :'bookmarks/edit'
+  end
+
+  patch '/bookmarks/:id' do
+    Bookmark.update(params['id'], params)
+    redirect('/bookmarks')
   end
 
   run! if app_file == $0
